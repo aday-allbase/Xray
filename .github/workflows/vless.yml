@@ -73,9 +73,9 @@ jobs:
           DOMAIN_NAME=${{ github.event.inputs.DOMAIN_NAME }}
 
           echo "Updating WORKER_NAME to ${WORKER_NAME}"
-          sed -i "s/%worker_name%/${WORKER_NAME}/g" ./vless/wrangler.toml
+          sed -i "s/%worker_name%/${WORKER_NAME}/g" ./wrangler.toml
           echo "Updating DOMAIN_NAME to ${DOMAIN_NAME}"
-          sed -i "s/%domain_name%/${DOMAIN_NAME}/g" ./vless/wrangler.toml
+          sed -i "s/%domain_name%/${DOMAIN_NAME}/g" ./wrangler.toml
 
       - name: 📚 Wrangler publish
         # github.com/cloudflare/wrangler-action

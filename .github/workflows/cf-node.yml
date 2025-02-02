@@ -11,7 +11,7 @@ on:
       environment:
         description: 'wrangler env to deploy to'
         required: true
-        default: 'prod'
+        default: 'dev'
         type: choice
         options:
         - dev
@@ -21,7 +21,7 @@ on:
         description: 'git tip commit to deploy'
         default: 'main'
         required: true
-
+        
 env:
   GIT_REF: ${{ github.event.inputs.commit || github.ref }}
   # default is 'dev' which is really empty/no env
@@ -65,17 +65,6 @@ jobs:
         # npm (and node16) are installed by wrangler-action in a pre-job setup
       - name: 🏗 Get dependencies
         run: npm i
-        
-      # Process Configuration
-      - name: 🔧 Update Configuration
-        run: |
-          WORKER_NAME=${{ github.event.inputs.WORKER_NAME }}
-          DOMAIN_NAME=${{ github.event.inputs.DOMAIN_NAME }}
-
-          echo "Updating WORKER_NAME to ${WORKER_NAME}"
-          sed -i "s/%worker_name%/${WORKER_NAME}/g" ./wrangler.toml
-          echo "Updating DOMAIN_NAME to ${DOMAIN_NAME}"
-          sed -i "s/%domain_name%/${DOMAIN_NAME}/g" ./wrangler.toml
 
       - name: 📚 Wrangler publish
         # github.com/cloudflare/wrangler-action
